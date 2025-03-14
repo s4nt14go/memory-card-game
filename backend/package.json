@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.mjs",
     "dev": "node --watch server.mjs",
-    "test-unit": "TEST_MODE=unit vitest --run"
+    "test-unit": "TEST_MODE=unit vitest --run",
+    "test-e2e": "TEST_MODE=e2e vitest --run"
   },
   "keywords": [],
   "author": "",

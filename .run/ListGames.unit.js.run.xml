@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ListGames.unit.js" type="JavaScriptTestRunnerVitest" nameIsGenerated="true">
+    <node-interpreter value="project" />
+    <vitest-package value="$PROJECT_DIR$/backend/node_modules/vitest" />
+    <working-dir value="$PROJECT_DIR$/backend" />
+    <vitest-options value="--run" />
+    <envs>
+      <env name="TEST_MODE" value="unit" />
+    </envs>
+    <scope-kind value="TEST_FILE" />
+    <test-file value="$PROJECT_DIR$/backend/controllers/memory/listGames/ListGames.unit.js" />
+    <method v="2" />
+  </configuration>
+</component>

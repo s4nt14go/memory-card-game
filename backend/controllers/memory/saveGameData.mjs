@@ -1,6 +1,6 @@
-const Save = require('../models/save');
+import Save from '../../models/save.mjs';
 
-exports.saveGameData = async (req, res) => {
+export const saveGameData = async (req, res) => {
     const { userID, gameDate, failed, difficulty, completed, timeTaken } = req.body;
 
     console.log('Received data to save:', req.body); 

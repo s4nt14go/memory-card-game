@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
+export const possibleDifficulties  = ['Easy', 'Normal', 'Hard'];
 const saveSchema = new mongoose.Schema({
   userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
   gameDate: { type: Date, required: true, default: Date.now },
@@ -7,10 +8,10 @@ const saveSchema = new mongoose.Schema({
   difficulty: {
     type: String,
     required: true,
-    enum: ['Easy', 'Normal', 'Hard'],  
+    enum: possibleDifficulties,
   },
   completed: { type: Number, required: true },
   timeTaken: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('Save', saveSchema);
+export default mongoose.model('Save', saveSchema);

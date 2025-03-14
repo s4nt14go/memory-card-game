@@ -99,4 +99,20 @@ describe(`fails`, () => {
     expect(response.status).toBe(400);
     expect(response.result).toHaveLength(5);
   });
+
+  test(`with 500 if executeImpl throws`, async () => {
+    const controller = new ListGames({models: {Save}});
+
+    const res = {
+      status: (code) => {
+        expect(code).toBe(500);
+        return res;
+      },
+      json: (data) => {
+        expect(data).toEqual({message: expect.any(String), error: expect.any(Error)});
+      },
+    }
+
+    await controller.execute('req to throw', res);
+  });
 });

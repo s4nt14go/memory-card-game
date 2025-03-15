@@ -5,6 +5,6 @@ const router = express.Router();
 
 // Route to save game data
 router.post('/save', SaveGameData);
-router.get('/list/:userID', ListGames);
+router.get('/list', ListGames);
 
 export default router;

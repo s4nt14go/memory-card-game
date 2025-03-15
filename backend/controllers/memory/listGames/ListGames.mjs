@@ -77,11 +77,10 @@ export class ListGames {
     };
   }
 
-  async execute(req, res) {
+  async execute(data, res) {
 
     try {
-      const {userID} = req.params;
-      const {pageNumber, pageSize, sortField, sortDir} = req.query;
+      const {pageNumber, pageSize, sortField, sortDir, userID} = data;
 
       const impl = await this.executeImpl({
         userID,

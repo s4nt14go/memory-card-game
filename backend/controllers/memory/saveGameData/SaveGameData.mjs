@@ -15,10 +15,6 @@ export const possibleCompleted = [0, 1];
 export class SaveGameData {
 
   constructor({ models: { Save } }) {
-  // constructor(Save) {
-  // constructor(args) {
-    // const { models } = args;
-    // this.Save = args;
     this.Save = Save;
   }
 
@@ -89,10 +85,10 @@ export class SaveGameData {
     };
   }
 
-  async execute(req, res) {
+  async execute(data, res) {
 
     try {
-      const { userID, gameDate, failed, difficulty, completed, timeTaken } = req.body;
+      const { userID, gameDate, failed, difficulty, completed, timeTaken } = data;
 
       const impl = await this.executeImpl({
         userID,

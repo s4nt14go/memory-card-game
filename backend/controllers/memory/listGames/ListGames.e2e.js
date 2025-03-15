@@ -1,10 +1,14 @@
 import { expect, it } from 'vitest';
+import dotenv from 'dotenv';
 import request from 'supertest';
 import app from '../../../server.mjs';
 import Save, {possibleDifficulties} from "../../../models/save.mjs";
 import User from "../../../models/user.mjs";
 import {sortDirOptions, sortFieldOptions} from "./ListGames.mjs";
+import jwt from "jsonwebtoken";
 const chance = require('chance').Chance();
+
+dotenv.config({ path: './config/.env' });
 
 const pageSize = 99999;
 const pageNumber = 1;
@@ -32,10 +36,12 @@ it('should list games', async () => {
     await newGame.save();
     created.push(newGame);
   }
-
   const userID = newUser._id;
+  const token = jwt.sign({ id: userID }, process.env.JWT_SECRET, { expiresIn: '1m' });
+
   const response = await request(app)
-    .get(`/api/memory/list/${userID}?pageSize=${pageSize}&pageNumber=${pageNumber}&sortField=${sortField}&sortDir=${sortDir}`);
+    .get(`/api/memory/list?pageSize=${pageSize}&pageNumber=${pageNumber}&sortField=${sortField}&sortDir=${sortDir}`)
+    .set('Authorization', `Bearer ${token}`);
 
   expect(response.statusCode).toBe(200);
   expect(response.body).toEqual({
@@ -69,12 +75,13 @@ it('should fail for an invalid input', async () => {
     password: 'test',
   });
   await newUser.save();
-
   const userID = newUser._id;
+  const token = jwt.sign({ id: userID }, process.env.JWT_SECRET, { expiresIn: '1m' });
 
   const sortDir = 'invalid';
   const response = await request(app)
-    .get(`/api/memory/list/${userID}?pageSize=${pageSize}&pageNumber=${pageNumber}&sortField=${sortField}&sortDir=${sortDir}`);
+    .get(`/api/memory/list?pageSize=${pageSize}&pageNumber=${pageNumber}&sortField=${sortField}&sortDir=${sortDir}`)
+    .set('Authorization', `Bearer ${token}`);
 
   expect(response.statusCode).toBe(400);
   expect(response.body).toEqual([{

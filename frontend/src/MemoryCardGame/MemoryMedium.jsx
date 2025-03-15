@@ -43,7 +43,10 @@ const shuffleArray = (array) => {
 const saveGameData = async (gameData) => {
   try {
     const response = await axios.post("http://localhost:5000/api/memory/save", gameData, {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
 
     console.log("Game data saved successfully", response.data);
@@ -273,7 +276,6 @@ const MemoryMedium = () => {
 
   const handleSaveNewGame = () => {
     saveGameData({
-        userID,
         gameDate: new Date(),
         failed: failedAttempts,
         difficulty: defaultDifficulty,
@@ -381,7 +383,6 @@ const MemoryMedium = () => {
         const saveData = async () => {
             try {
                 await saveGameData({
-                    userID,
                     gameDate: new Date(),
                     failed: failedAttempts,
                     difficulty: defaultDifficulty,

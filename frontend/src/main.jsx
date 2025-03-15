@@ -2,7 +2,6 @@ import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Login/Login';
-import Register from './Login/Register';
 import Play from './MemoryCardGame/Play';
 import Easy from './MemoryCardGame/MemoryEasy';
 import Medium from './MemoryCardGame/MemoryMedium';
@@ -28,7 +27,6 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/congratulations"
       element={isAuthenticated ? <Congratulations /> : <Navigate to="/login" />}
       />

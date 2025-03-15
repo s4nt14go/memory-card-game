@@ -153,6 +153,15 @@ html, body {
     }
 }
 
+/* Button container */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20%;
+    z-index: 10;
+}
+
 /* Game button styling */
 .game-button {
     width: 300px; /* Button size */
@@ -235,19 +244,19 @@ input:checked + .slider:before {
 }
 
 
-/* Calm Mode button styling */
+/*!* Calm Mode button styling *!
 .game-button.calm-button {
-  background: linear-gradient(90deg, #9fae9b, #7f9f7c); /* Calm gradient */
-  border: 2px solid #8b8f80; /* Calm border color */
+  background: linear-gradient(90deg, #9fae9b, #7f9f7c); !* Calm gradient *!
+  border: 2px solid #8b8f80; !* Calm border color *!
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Calm Mode button hover effect */
+!* Calm Mode button hover effect *!
 .game-button.calm-button:hover {
-  background: linear-gradient(90deg, #a0b79d, #8ba982); /* Light calm hover effect */
-  box-shadow: 0 0 20px #ffffff, 0 8px 16px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
-  transform: scale(1.1); /* Slight zoom effect */
-}
+  background: linear-gradient(90deg, #a0b79d, #8ba982); !* Light calm hover effect *!
+  box-shadow: 0 0 20px #ffffff, 0 8px 16px rgba(0, 0, 0, 0.6); !* Enhanced shadow *!
+  transform: scale(1.1); !* Slight zoom effect *!
+}*/
 
 /* Calm Mode title styling */
 .game-title.calm-title {
@@ -352,3 +361,45 @@ input:checked + .slider:before {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 8px 16px rgba(0, 0, 0, 0.6);
     transform: scale(1.1);
   }
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.text-input {
+    margin: 15px;
+    font-family: "Press Start 2P", sans-serif; /* Retro font */
+    box-shadow:
+            0 0 10px rgba(255, 255, 255, 0.3), /* Outer glow */
+            0 6px 12px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+
+    width: -webkit-fill-available;
+    height: 44px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #4a4e69;
+    border-radius: 10px;
+    background-color: #1e1e2e;
+    color: #fff;
+    text-align: center;
+}
+.text-input:hover {
+    background: linear-gradient(90deg, #6c757d, #343a40); /* Hover gradient */
+    box-shadow:
+            0 0 20px #ffffff, /* Brighter glow */
+            0 8px 16px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
+    transform: scale(1.1);
+
+}
+
+.error {
+    color: #ff4e4e;
+    font-family: "Press Start 2P", sans-serif;
+    background: linear-gradient(90deg, #4a4e69, #22223b);
+    padding: 12px;
+    border-radius: 10px;
+}

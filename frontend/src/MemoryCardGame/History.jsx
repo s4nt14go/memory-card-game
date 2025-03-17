@@ -59,6 +59,8 @@ const History = ({onLogout}) => {
     rowCount: 0,
   });
 
+  const [fetchInFlight, setFetchInFlight] = useState(false);
+
   useEffect(() => {
     const fetchHistory = async () => {
       try {
@@ -95,9 +97,14 @@ const History = ({onLogout}) => {
           }]
         }
         setErrors(_errors);
+      } finally {
+        setFetchInFlight(false);
       }
   }
-  void fetchHistory();
+  if (!fetchInFlight) {
+    void fetchHistory();
+    setFetchInFlight(true);
+  }
   }, [
     pagination.pageIndex,
     pagination.pageSize,
@@ -223,19 +230,19 @@ const History = ({onLogout}) => {
           <div className="pagination-buttons-container">
             <button
               className={`p-3 rounded
-          ${!canPreviousPage ? 'disabled' : 'hover:bg-hover'}  
+          ${!canPreviousPage || fetchInFlight ? 'disabled' : 'hover:bg-hover'}  
         `}
               onClick={() => table.setPageIndex(0)}
-              disabled={!canPreviousPage}
+              disabled={!canPreviousPage || fetchInFlight}
             >
               <ChevronsLeftIcon className="h-6 w-6 inline"/>
             </button>
             <button
               className={`p-3 rounded
-          ${!canPreviousPage ? 'disabled' : 'hover:bg-hover'}  
+          ${!canPreviousPage || fetchInFlight ? 'disabled' : 'hover:bg-hover'}  
         `}
               onClick={() => table.previousPage()}
-              disabled={!canPreviousPage}
+              disabled={!canPreviousPage || fetchInFlight}
             >
               <ChevronLeftIcon className="h-6 w-6 inline"/>
             </button>
@@ -245,13 +252,13 @@ const History = ({onLogout}) => {
           ${!canNextPage ? 'disabled' : 'hover:bg-hover'}  
         `}
               onClick={() => table.nextPage()}
-              disabled={!canNextPage}
+              disabled={!canNextPage || fetchInFlight}
             >
               <ChevronRightIcon className="h-6 w-6 inline"/>
             </button>
             <button
               className={`p3 rounded
-          ${!canNextPage ? 'disabled' : 'hover:bg-hover'}
+          ${!canNextPage || fetchInFlight? 'disabled' : 'hover:bg-hover'}
         `}
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               disabled={!canNextPage}
@@ -268,8 +275,11 @@ const History = ({onLogout}) => {
         </label>
         <div className="select-container">
           <select
+            disabled={fetchInFlight}
             id="items_per_page"
-            className="select"
+            className={`select
+              ${fetchInFlight && 'disabled'}
+            `}
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
               setPagination({

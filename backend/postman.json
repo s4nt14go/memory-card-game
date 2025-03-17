@@ -1,0 +1,168 @@
+{
+  "info": {
+    "_postman_id": "6255e317-c97e-47ee-8baa-56a14b32aa40",
+    "name": "memory-card-game",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10288009"
+  },
+  "item": [
+    {
+      "name": "saveGameData",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"gameDate\": \"2025-03-12T10:15:03.252Z\",\n    \"failed\": 999,\n    \"difficulty\": \"Normal\",\n    \"completed\": 1,\n    \"timeTaken\": 8\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/api/memory/save",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "api",
+            "memory",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "listGames",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/api/memory/list?pageSize=5&pageNumber=2&sortField=gameDate&sortDir=asc",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "api",
+            "memory",
+            "list"
+          ],
+          "query": [
+            {
+              "key": "pageSize",
+              "value": "5"
+            },
+            {
+              "key": "pageNumber",
+              "value": "2"
+            },
+            {
+              "key": "sortField",
+              "value": "gameDate"
+            },
+            {
+              "key": "sortDir",
+              "value": "asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ping",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}",
+          "host": [
+            "{{url}}"
+          ],
+          "query": [
+            {
+              "key": "pageSize",
+              "value": "5",
+              "disabled": true
+            },
+            {
+              "key": "pageNumber",
+              "value": "2",
+              "disabled": true
+            },
+            {
+              "key": "sortField",
+              "value": "gameDate",
+              "disabled": true
+            },
+            {
+              "key": "sortDir",
+              "value": "asc",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "<your token>",
+      "type": "string"
+    },
+    {
+      "key": "url",
+      "value": "<your url>",
+      "type": "string"
+    }
+  ]
+}

@@ -5,6 +5,9 @@ import "./Login.css";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+if (!apiUrl) throw Error("API URL is not defined");
+
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
@@ -13,7 +16,7 @@ const Login = ({ onLogin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', formData);
+      const response = await axios.post(`${apiUrl}/api/users/login`, formData);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userID', response.data.userID); // Save the userID
       onLogin();
@@ -30,8 +33,8 @@ const Login = ({ onLogin }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/users/register', formData); // Add base URL
-      const response = await axios.post('http://localhost:5000/api/users/login', formData);
+      await axios.post(`${apiUrl}/api/users/register`, formData); // Add base URL
+      const response = await axios.post(`${apiUrl}/api/users/login`, formData);
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userID', response.data.userID); // Save the userID
       onLogin();

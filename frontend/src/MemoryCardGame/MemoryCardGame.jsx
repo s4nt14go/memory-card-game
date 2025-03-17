@@ -8,7 +8,8 @@ import background from "../assets/images/mode1.gif";
 import bgMusic from "../assets/audio/memory-bg.mp3";
 import axios from "axios";
 
-
+const apiUrl = import.meta.env.VITE_API_URL;
+if (!apiUrl) throw Error("API URL is not defined");
 
 const defaultDifficulty = "Hard";
 
@@ -50,7 +51,7 @@ const shuffleArray = (array) => {
 };
 const saveGameData = async (gameData) => {
   try {
-    const response = await axios.post("http://localhost:5000/api/memory/save", gameData, {
+    const response = await axios.post(`${apiUrl}/api/memory/save`, gameData, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,

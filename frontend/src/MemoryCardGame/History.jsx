@@ -15,6 +15,9 @@ import {ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon} 
 import {styled} from "@mui/system";
 import {Box} from "@mui/material";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+if (!apiUrl) throw Error("API URL is not defined");
+
 const columnHelper = createColumnHelper();
 
 const columns = [
@@ -65,7 +68,7 @@ const History = ({onLogout}) => {
     const fetchHistory = async () => {
       try {
         const { pageIndex, pageSize, sortField, sortDir } = pagination;
-        const response = await axios.get(`http://localhost:5000/api/memory/list?pageSize=${pageSize}&pageNumber=${pageIndex + 1}&sortField=${sortField}&sortDir=${sortDir}`, {
+        const response = await axios.get(`${apiUrl}/api/memory/list?pageSize=${pageSize}&pageNumber=${pageIndex + 1}&sortField=${sortField}&sortDir=${sortDir}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

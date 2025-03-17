@@ -161,148 +161,157 @@ const History = ({onLogout}) => {
         Back
       </PixelButton>
 
-      <div className={`button-container`}>
-        <table className={`table`}>
-          <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th key={header.id}
-                    className="table-header"
-                >
-                  <div
-                    {...{
-                      className: header.column.getCanSort() ? 'cursor-pointer' : '',
-                      onClick: () => {
-                        let nextSortingOrder = header.column.getNextSortingOrder();
-                        if (!nextSortingOrder) {
-                          // console.log('skip nextSortingOrder = false, use asc')
-                          nextSortingOrder = 'asc';
-                        }
-                        setPagination({
-                          ...pagination,
-                          sortField: header.column.id,
-                          sortDir: nextSortingOrder,
-                        });
-                        setSorting([
-                          {
-                            id: header.column.id,
-                            desc: nextSortingOrder === 'desc',
-                            asc: nextSortingOrder === 'asc',
-                          },
-                        ]);
-                      }
-                    }}
-                  >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                    {{
-                      asc: <span>&nbsp;↑</span>,
-                      desc: <span>&nbsp;↓</span>,
-                    }[header.column.getIsSorted()] ?? null}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-          </thead>
-          <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-          </tbody>
-        </table>
+      {!games.length &&
+        <div className={`font big`}>
+          <p>No games found</p>
+        </div>
+      }
 
-        {/* Pagination */}
-        <div className="pagination-container">
-          <div className="pagination-info font">
+      {!!games.length &&
+        <div className={`button-container`}>
+          <table className={`table`}>
+            <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <th key={header.id}
+                      className="table-header"
+                  >
+                    <div
+                      {...{
+                        className: header.column.getCanSort() ? 'cursor-pointer' : '',
+                        onClick: () => {
+                          let nextSortingOrder = header.column.getNextSortingOrder();
+                          if (!nextSortingOrder) {
+                            // console.log('skip nextSortingOrder = false, use asc')
+                            nextSortingOrder = 'asc';
+                          }
+                          setPagination({
+                            ...pagination,
+                            sortField: header.column.id,
+                            sortDir: nextSortingOrder,
+                          });
+                          setSorting([
+                            {
+                              id: header.column.id,
+                              desc: nextSortingOrder === 'desc',
+                              asc: nextSortingOrder === 'asc',
+                            },
+                          ]);
+                        }
+                      }}
+                    >
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                      {{
+                        asc: <span>&nbsp;↑</span>,
+                        desc: <span>&nbsp;↓</span>,
+                      }[header.column.getIsSorted()] ?? null}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
+            </thead>
+            <tbody>
+            {table.getRowModel().rows.map(row => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map(cell => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+            </tbody>
+          </table>
+
+          {/* Pagination */}
+          <div className="pagination-container">
+            <div className="pagination-info font">
             <span>
               Page <strong>{table.getState().pagination.pageIndex + 1}</strong> of <strong>{table.getPageCount()}</strong>.
             </span>&nbsp;
-            <span className="block">
+              <span className="block">
               Total results:&nbsp;
-              <strong>{pagination.rowCount}</strong>
+                <strong>{pagination.rowCount}</strong>
             </span>
-          </div>
+            </div>
 
-          <div className="pagination-buttons-container">
-            <button
-              className={`p-3 rounded
+            <div className="pagination-buttons-container">
+              <button
+                className={`p-3 rounded
           ${!canPreviousPage || fetchInFlight ? 'disabled' : 'hover:bg-hover'}  
         `}
-              onClick={() => table.setPageIndex(0)}
-              disabled={!canPreviousPage || fetchInFlight}
-            >
-              <ChevronsLeftIcon className="h-6 w-6 inline"/>
-            </button>
-            <button
-              className={`p-3 rounded
+                onClick={() => table.setPageIndex(0)}
+                disabled={!canPreviousPage || fetchInFlight}
+              >
+                <ChevronsLeftIcon className="h-6 w-6 inline"/>
+              </button>
+              <button
+                className={`p-3 rounded
           ${!canPreviousPage || fetchInFlight ? 'disabled' : 'hover:bg-hover'}  
         `}
-              onClick={() => table.previousPage()}
-              disabled={!canPreviousPage || fetchInFlight}
-            >
-              <ChevronLeftIcon className="h-6 w-6 inline"/>
-            </button>
-            &nbsp;
-            <button
-              className={`p-3 rounded
+                onClick={() => table.previousPage()}
+                disabled={!canPreviousPage || fetchInFlight}
+              >
+                <ChevronLeftIcon className="h-6 w-6 inline"/>
+              </button>
+              &nbsp;
+              <button
+                className={`p-3 rounded
           ${!canNextPage ? 'disabled' : 'hover:bg-hover'}  
         `}
-              onClick={() => table.nextPage()}
-              disabled={!canNextPage || fetchInFlight}
-            >
-              <ChevronRightIcon className="h-6 w-6 inline"/>
-            </button>
-            <button
-              className={`p3 rounded
-          ${!canNextPage || fetchInFlight? 'disabled' : 'hover:bg-hover'}
+                onClick={() => table.nextPage()}
+                disabled={!canNextPage || fetchInFlight}
+              >
+                <ChevronRightIcon className="h-6 w-6 inline"/>
+              </button>
+              <button
+                className={`p3 rounded
+          ${!canNextPage || fetchInFlight ? 'disabled' : 'hover:bg-hover'}
         `}
-              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-              disabled={!canNextPage}
-            >
-              <ChevronsRightIcon className="h-6 w-6 inline"/>
-            </button>
+                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                disabled={!canNextPage}
+              >
+                <ChevronsRightIcon className="h-6 w-6 inline"/>
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Page size */}
-        <div>
-        <label htmlFor="items_per_page" className="font per-page-label">
-          Items per page
-        </label>
-        <div className="select-container">
-          <select
-            disabled={fetchInFlight}
-            id="items_per_page"
-            className={`select
+          {/* Page size */}
+          <div>
+            <label htmlFor="items_per_page" className="font per-page-label">
+              Items per page
+            </label>
+            <div className="select-container">
+              <select
+                disabled={fetchInFlight}
+                id="items_per_page"
+                className={`select
               ${fetchInFlight && 'disabled'}
             `}
-            value={table.getState().pagination.pageSize}
-            onChange={(e) => {
-              setPagination({
-                ...pagination,
-                pageSize: Number(e.target.value),
-              })
-            }}
-          >
-            {[5, 10].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                {pageSize}
-              </option>
-            ))}
-          </select>
-        </div>
-        </div>
+                value={table.getState().pagination.pageSize}
+                onChange={(e) => {
+                  setPagination({
+                    ...pagination,
+                    pageSize: Number(e.target.value),
+                  })
+                }}
+              >
+                {[5, 10].map((pageSize) => (
+                  <option key={pageSize} value={pageSize}>
+                    {pageSize}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-        { !!errors.length && errors.map(e => <p className={'error'} key={e.type}>{e.message}</p>) }
+          {!!errors.length && errors.map(e => <p className={'error'} key={e.type}>{e.message}</p>)}
 
-      </div>
+        </div>
+      }
+
 
     </div>
   );

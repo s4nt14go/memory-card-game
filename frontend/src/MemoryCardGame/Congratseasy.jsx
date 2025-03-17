@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import background from "../assets/images/celebration.gif"; // Background image
-import bgMusic from "../assets/audio/celebrate.mp3"; // Background music file
+import bgMusic from "../assets/audio/Celebrate.mp3"; // Background music file
 import congratulationImage from "../assets/images/congrats2.png"; // Path to your congratulation image
 
 // Styled Components

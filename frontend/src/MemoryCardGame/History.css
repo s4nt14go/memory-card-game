@@ -38,3 +38,49 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.select-container {
+    display: inline;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.select {
+    display: inline;
+    padding: 0.625rem;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    border-color: #9CA3AF;
+    color: #111827;
+    background-color: buttonface;
+}
+
+.font {
+    font-family: "Orbitron", sans-serif;
+}
+
+.pagination-container {
+    margin-bottom: 0.25rem;
+    justify-content: space-between;
+}
+.pagination-info {
+    display: inline-flex;
+    margin-bottom: 5px;
+    position: relative;
+    align-items: center;
+}
+.pagination-buttons-container {
+    margin-bottom: 0.25rem;
+    justify-self: center;
+    position: relative;
+    margin-left: 0.75rem;
+    align-items: center;
+}
+
+.block {
+    display: block;
+}
+
+.per-page-label {
+    margin-right: 5px;
+}

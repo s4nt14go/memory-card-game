@@ -100,7 +100,7 @@ const History = ({onLogout}) => {
   void fetchHistory();
   }, [
     pagination.pageIndex,
-    // pagination.pageSize,
+    pagination.pageSize,
     pagination.sortField,
     pagination.sortDir,
   ]);
@@ -147,7 +147,7 @@ const History = ({onLogout}) => {
         WonderCards
       </h1>
 
-      <PixelButton onClick={() => navigate("/play")} sx={{ alignSelf: "flex-start", margin: 2 }}>
+      <PixelButton onClick={() => navigate("/play")} sx={{alignSelf: "flex-start", margin: 2}}>
         Back
       </PixelButton>
 
@@ -209,23 +209,18 @@ const History = ({onLogout}) => {
         </table>
 
         {/* Pagination */}
-        <div className="table:flex justify-between mb-1">
-          <div className="relative table:inline-flex items-center">
-        <span>
-          Página&nbsp;
-          <strong>
-            {table.getState().pagination.pageIndex + 1} de&nbsp;
-            {table.getPageCount()}
-          </strong>
-          .&nbsp;
-        </span>
+        <div className="pagination-container">
+          <div className="pagination-info font">
+            <span>
+              Page <strong>{table.getState().pagination.pageIndex + 1}</strong> of <strong>{table.getPageCount()}</strong>.
+            </span>&nbsp;
             <span className="block">
-          Total de resultados:&nbsp;
+              Total results:&nbsp;
               <strong>{pagination.rowCount}</strong>
-        </span>
+            </span>
           </div>
 
-          <div className="relative table:ml-3 inline-flex items-center">
+          <div className="pagination-buttons-container">
             <button
               className={`p-3 rounded
           ${!canPreviousPage ? 'disabled' : 'hover:bg-hover'}  
@@ -264,6 +259,32 @@ const History = ({onLogout}) => {
               <ChevronsRightIcon className="h-6 w-6 inline"/>
             </button>
           </div>
+        </div>
+
+        {/* Page size */}
+        <div>
+        <label htmlFor="items_per_page" className="font per-page-label">
+          Items per page
+        </label>
+        <div className="select-container">
+          <select
+            id="items_per_page"
+            className="select"
+            value={table.getState().pagination.pageSize}
+            onChange={(e) => {
+              setPagination({
+                ...pagination,
+                pageSize: Number(e.target.value),
+              })
+            }}
+          >
+            {[5, 10].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
         </div>
 
         { !!errors.length && errors.map(e => <p className={'error'} key={e.type}>{e.message}</p>) }

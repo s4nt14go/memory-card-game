@@ -9,6 +9,7 @@ import MemoryCardGame from './MemoryCardGame/MemoryCardGame';
 import Congratulations from "./MemoryCardGame/Congratulation";
 import CongtEasy from "./MemoryCardGame/Congratseasy";
 import CongtNormal from "./MemoryCardGame/Congratsnormal";
+import History from "./MemoryCardGame/History.jsx";
 
 
 const App = () => {
@@ -18,10 +19,10 @@ const App = () => {
     setIsAuthenticated(true);
   };
 
-  // const handleLogout = () => {
-  //   setIsAuthenticated(false);
-  //   localStorage.removeItem('token');
-  // };
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('token');
+  };
 
   return (
     <Router>
@@ -46,6 +47,10 @@ const App = () => {
         <Route
           path="/play"
           element={isAuthenticated ? <Play /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/history"
+          element={isAuthenticated ? <History onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
   
         <Route

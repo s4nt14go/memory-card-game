@@ -69,7 +69,7 @@ const Login = ({ onLogin }) => {
           type="text"
           value={formData.username}
           onChange={(e) => setFormData({...formData, username: e.target.value})}
-          className="game-button2 text-input"
+          className="text-input"
           placeholder="Username"
           onMouseEnter={playHoverSound}
         />
@@ -78,7 +78,7 @@ const Login = ({ onLogin }) => {
           type="password"
           value={formData.password}
           onChange={(e) => setFormData({...formData, password: e.target.value})}
-          className="game-button2 text-input"
+          className="text-input"
           placeholder="Password"
           onMouseEnter={playHoverSound}
         />

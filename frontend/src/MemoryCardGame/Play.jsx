@@ -226,6 +226,13 @@ const Play = () => {
           Play
         </button>
         <button
+          className={`game-button`}
+          onClick={() => navigate("/history")}
+          onMouseEnter={playHoverSound}
+        >
+          Gameplay History
+        </button>
+        <button
           className={`game-button ${isCalmMode ? "calm-button" : ""}`}
           onClick={() => {
             playClickSound();

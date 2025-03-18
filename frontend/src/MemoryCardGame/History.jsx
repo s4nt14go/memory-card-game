@@ -8,7 +8,6 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
-  getSortedRowModel,
   useReactTable
 } from "@tanstack/react-table";
 import {ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon} from "lucide-react";
@@ -79,6 +78,13 @@ const History = ({onLogout}) => {
           rowCount: response.data.count,
           pageIndex,
         });
+        setSorting([
+          {
+            id: pagination.sortField,
+            desc: pagination.sortDir === 'desc',
+            asc: pagination.sortDir === 'asc',
+          },
+        ]);
         setErrors([]);
       } catch (error) {
         console.log({error});
@@ -130,7 +136,6 @@ const History = ({onLogout}) => {
     data: games,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     manualPagination: true,
     rowCount: pagination.rowCount,
@@ -139,7 +144,6 @@ const History = ({onLogout}) => {
       sorting,
       pagination,
     },
-    onSortingChange: setSorting,
   })
 
   const canPreviousPage = table.getCanPreviousPage();
@@ -191,13 +195,6 @@ const History = ({onLogout}) => {
                             sortField: header.column.id,
                             sortDir: nextSortingOrder,
                           });
-                          setSorting([
-                            {
-                              id: header.column.id,
-                              desc: nextSortingOrder === 'desc',
-                              asc: nextSortingOrder === 'asc',
-                            },
-                          ]);
                         }
                       }}
                     >

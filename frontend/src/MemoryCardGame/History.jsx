@@ -184,7 +184,7 @@ const History = ({onLogout}) => {
                           let nextSortingOrder = header.column.getNextSortingOrder();
                           if (!nextSortingOrder) {
                             // console.log('skip nextSortingOrder = false, use asc')
-                            nextSortingOrder = 'asc';
+                            nextSortingOrder = pagination.sortDir === 'asc' ? 'desc' : 'asc';
                           }
                           setPagination({
                             ...pagination,
